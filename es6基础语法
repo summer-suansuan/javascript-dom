@@ -47,8 +47,9 @@
       </ul>
       `;
       
-   5.Promise
-     
+   ## Promise
+   
+   1.常规promise 
    new Promise((resolve, reject) => {
      // 异步函数
      $.ajax({
@@ -68,6 +69,49 @@
      // 对应reject失败的函数
      console.log('error:', err);
    });
+   
+   2.链式promise
+   
+   var promiseFn1 = new Promise((resolve, reject) => {
+    $.ajax({
+      url: 'http://happymmall.com/user/get_user_info.do',
+      type: 'post',
+      success(res) {
+        resolve(res);
+      },
+      error(err) {
+        reject(err);
+      }
+    });
+   });
+   
+   var promiseFn2 = new Promise((resolve, reject) => {
+    $.ajax({
+      url: 'http://happymmall.com/cart/get_cart_product_count.do',
+      type: 'post',
+      success(res) {
+        resolve(res);
+      },
+      error(err) {
+        reject(err);
+      }
+    });
+   });
+   
+   promiseFn1.then(() => {  // 此处先调用promiseFn1返回的then()中的成功方法，return promiseFn2方法返回的then()执行成功的内容
+      // promiseFn1返回成功
+      console.log('promiseFn1 success');
+      return promiseFn2;
+   }).then(() => {
+    // promiseFn2返回成功
+      console.log('promiseFn2 success');
+      console.log();
+   })
+   
+   ## 面向对象-类的继承
+   
+   1.extends：类的继承
+   2.super: 调用父类的构造函数
    
    
    
