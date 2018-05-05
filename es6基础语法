@@ -48,4 +48,27 @@
       `;
       
    5.Promise
+     
+   new Promise((resolve, reject) => {
+     // 异步函数
+     $.ajax({
+      url: 'http://happymmall.com/user/get_user_info.do',
+      type: 'post',
+      success(res){
+        resolve(res);
+      },
+      error(err){
+        reject(err);
+      }
+     })
+   }).then((res) => {
+     // 对应resolve成功的函数
+     console.log('success:', res);
+   }, (err) => {
+     // 对应reject失败的函数
+     console.log('error:', err);
+   });
+   
+   
+   
    
