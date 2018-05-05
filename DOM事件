@@ -11,15 +11,15 @@
 # 2、DOM2级别
     绑定事件的方式改变，使用addEventListener的方法，该方法有三个参数；
     
-    第一个参数是事件名，第二个参数是回调函数，第三个参数是布尔值，true表示事件捕获，false表示事件冒泡；
+    第一个参数是事件名，第二个参数是回调函数，第三个参数是布尔值，false，true；
     形如：
       document.getElementById("btn").addEventListener("click", function(){
         alert("我依旧是按钮哈！");
-      }, true)
+      }, false)
     这种形式在IE浏览器低版本不支持，IE下使用attachEvent，形如：
       document.getElementById("btn").attachEvent("onclick", function(){
         alert("我依旧是按钮哈！");
-      })
+      }, false)
     attachEvent与DOM0，DOM2的区别是，attachEvent绑定事件中事件名是“onclick”；而且事件处理程序作用域是指向全局也就是this指向的是window；
     并且与addEventListener不同，attachEvent绑定多个事件的执行顺序是反向的。
 # 3、DOM3级别
@@ -46,5 +46,21 @@
       返回绑定事件的元素，绑定事件的元素不一定是当前点击的元素，比如事件委托的情况下，就有所区别，如：ul下的每个li都需要绑定click事件，
       该情况下就可以把事件绑定到ul上面，这可以优化性能，不用多次绑定事件，这就是事件委托；
       点击li时，target指向的是当前点击的li，而currentTarget则指向ul
+      
+## 四、自定义事件
+
+  # 1、Event(事件名)自定义
+    形如：
+    var false = new Event("build");  // 定义事件
+    elem.addEventListener("build", function() {  // 绑定事件
+        console.log("build");
+    })
+    elem.dispatchEvent(false);   // 触发事件
+    
+  # 2、CustomEvent 除了定义事件名，还可以传递数据
+  形如：
+  var eve = new CustomEvent("build", {"detail": elm.dataset.time});
+  
+    
       
       
