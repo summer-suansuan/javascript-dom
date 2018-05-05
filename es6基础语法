@@ -1,0 +1,51 @@
+
+## let,const
+1.不能变量提升
+2.在块级作用域中有效；
+3.不能重复定义
+4.consot声明常量，不能改变
+
+## 箭头函数
+1.没有独立作用域
+2.不能用做构造函数
+3.没有prototype
+
+## 模板字符串
+  1.反引号连接字符串
+  如： 
+    let str = `
+      <div>
+        <h1 class="title">123</h1>
+      </div>
+      `;
+      
+  2.嵌套变量
+    let name = 'zoe';
+    let str = `
+      <div>
+        <h1 class="title">${name}</h1>
+      </div>
+      `;
+      
+  3.嵌套函数
+    let getName = () => {
+      return 'suansuan';
+    };
+    let str = `
+      <div>
+        <h1 class="title">${getName()}</h1>
+      </div>
+      `;
+      
+  4.循环嵌套
+    let names = ['zoe', 'lp', 'suansuan'];
+    let str = `
+      <ul>
+        ${
+          names.map(name => `<li>Hi, I am ${name}</li>`).join('')
+        }
+      </ul>
+      `;
+      
+   5.Promise
+   
