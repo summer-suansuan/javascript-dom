@@ -1,0 +1,50 @@
+## 一、事件级别
+
+# 1、DOM0级别
+    最初的事件绑定，要么是直接以属性的形式绑定到html标签上，要么是元素直接onclick绑定事件；
+    形如： 
+      <button id="btn" onclick="alert ('我是按钮哟！');">点击</button>或者
+      document.getElementById("btn").onclick = function() {
+        alert("我还是按钮哟");
+      }
+          
+# 2、DOM2级别
+    绑定事件的方式改变，使用addEventListener的方法，该方法有三个参数；
+    
+    第一个参数是事件名，第二个参数是回调函数，第三个参数是布尔值，true表示事件捕获，false表示事件冒泡；
+    形如：
+      document.getElementById("btn").addEventListener("click", function(){
+        alert("我依旧是按钮哈！");
+      }, true)
+    这种形式在IE浏览器低版本不支持，IE下使用attachEvent，形如：
+      document.getElementById("btn").attachEvent("onclick", function(){
+        alert("我依旧是按钮哈！");
+      })
+    attachEvent与DOM0，DOM2的区别是，attachEvent绑定事件中事件名是“onclick”；而且事件处理程序作用域是指向全局也就是this指向的是window；
+    并且与addEventListener不同，attachEvent绑定多个事件的执行顺序是反向的。
+# 3、DOM3级别
+    与DOM2绑定事件的方式一样，区别在于增加了一些事件名，如keyup,dblclick等
+    
+## 二、事件类型
+
+  # 1、事件捕获
+      事件具体执行流程（由上而下）：window--document--html--body---目标对象节点
+  # 2、事件冒泡
+      事件具体执行流程（由下而上）：与事件捕获相反
+      
+## 三、Event对象的常见应用
+  
+  # 1、event.preventDefault()
+      阻止默认事件，比如：a标签有默认事件跳转链接，绑定点击事件是设置了就可以阻止跳转；
+  # 2、event.stopPropagation()
+      阻止事件冒泡, 比如：目标对象的父级还绑定了点击事件，那么不阻止事件冒泡的话会先执行目标对象的点击事件，然后再继续执行父元素的点击事件；
+  # 3、event.stopImmediatePropagation()
+      阻止后续事件的执行，比如：目标对象上绑定了多个点击事件，当执行完第一个事件后不想继续执行后面的事件可在第一个事件内添加该方法以阻止后续事件的执行
+  # 4、event.target
+      返回触发事件的元素，就是返回当前点击的元素
+  # 5、event.currentTarget
+      返回绑定事件的元素，绑定事件的元素不一定是当前点击的元素，比如事件委托的情况下，就有所区别，如：ul下的每个li都需要绑定click事件，
+      该情况下就可以把事件绑定到ul上面，这可以优化性能，不用多次绑定事件，这就是事件委托；
+      点击li时，target指向的是当前点击的li，而currentTarget则指向ul
+      
+      
